@@ -10,9 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101230130149) do
+ActiveRecord::Schema.define(:version => 20110105183546) do
 
   create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "requirement_statuses", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -21,13 +27,14 @@ ActiveRecord::Schema.define(:version => 20101230130149) do
   create_table "requirements", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.string   "status"
+    t.integer  "status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "project_id"
   end
 
   add_index "requirements", ["project_id"], :name => "requirement_project_index"
+  add_index "requirements", ["status_id"], :name => "requirement_status_index"
 
   create_table "task_assignments", :force => true do |t|
     t.datetime "created_at"
@@ -44,6 +51,8 @@ ActiveRecord::Schema.define(:version => 20101230130149) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "requirement_id"
+    t.integer  "position"
+    t.date     "due_date"
   end
 
   add_index "tasks", ["requirement_id"], :name => "requirement_task_index"

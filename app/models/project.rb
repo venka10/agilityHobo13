@@ -14,15 +14,21 @@ class Project < ActiveRecord::Base
   # --- Permissions --- #
 
   def create_permitted?
-    acting_user.administrator?
+    # Make sure the user is 1) Signed up and a Coordinator or 2) is an                                                                                                 
+    # Adminstrator
+   (acting_user.signed_up? &&  acting_user.role=="Coordinator") || acting_user.administrator?
   end
 
   def update_permitted?
-    acting_user.administrator?
+    # Make sure the user is 1) Signed up and a Coordinator or 2) is an      
+    # Adminstrator
+   (acting_user.signed_up? &&  acting_user.role=="Coordinator") || acting_user.administrator?
   end
 
+
   def destroy_permitted?
-    acting_user.administrator?
+    #acting_user.administrator?
+    false
   end
 
   def view_permitted?(field)

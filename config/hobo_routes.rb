@@ -28,6 +28,14 @@ Projects::Application.routes.draw do
   post 'projects/:project_id/requirements(.:format)' => 'requirements#create_for_project', :as => 'create_requirement_for_project'
 
 
+  # Resource routes for controller "requirement_statuses"
+  get 'requirement_statuses(.:format)' => 'requirement_statuses#index', :as => 'requirement_statuses'
+  get 'requirement_statuses/new(.:format)', :as => 'new_requirement_status'
+  post 'requirement_statuses(.:format)' => 'requirement_statuses#create', :as => 'create_requirement_status'
+  put 'requirement_statuses/:id(.:format)' => 'requirement_statuses#update', :as => 'update_requirement_status', :constraints => { :id => %r([^/.?]+) }
+  delete 'requirement_statuses/:id(.:format)' => 'requirement_statuses#destroy', :as => 'destroy_requirement_status', :constraints => { :id => %r([^/.?]+) }
+
+
   # Resource routes for controller "tasks"
   get 'tasks/:id/edit(.:format)' => 'tasks#edit', :as => 'edit_task'
   post 'tasks(.:format)' => 'tasks#create', :as => 'create_task'
@@ -36,6 +44,9 @@ Projects::Application.routes.draw do
 
   # Owner routes for controller "tasks"
   post 'requirements/:requirement_id/tasks(.:format)' => 'tasks#create_for_requirement', :as => 'create_task_for_requirement'
+
+  # Reorder routes for controller "tasks"
+  post 'tasks/reorder(.:format)', :as => 'reorder_tasks'
 
 
   # Lifecycle routes for controller "users"

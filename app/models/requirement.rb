@@ -4,13 +4,14 @@ class Requirement < ActiveRecord::Base
 
   fields do
     title  :string
-    body   :text
-    status :string
+    body   :html
     timestamps
   end
 
   belongs_to :project, :index=>'requirement_project_index'
-  has_many :tasks, :dependent=>:destroy
+  belongs_to :status, :class_name => "RequirementStatus", :index => 'requirement_status_index'
+    
+  has_many :tasks, :dependent=>:destroy, :order=>:position
   
   children :tasks
 
@@ -21,7 +22,7 @@ class Requirement < ActiveRecord::Base
   end
 
   def update_permitted?
-    acting_user.administrator?
+    ((acting_user.signed_up? && acting_user.role == "coordinator") or acting_user.administrator?) && !project_changed?
   end
 
   def destroy_permitted?

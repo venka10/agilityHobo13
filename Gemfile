@@ -30,3 +30,5 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 #   gem 'webrat'
 # end
 gem "hobo", ">= 1.3.0.pre25"
+
+gem "validates_timeliness"

@@ -1,0 +1,7 @@
+<show-page>
+  <collection: replace>
+    <table-plus with="&@reqlist" fields="this, tasks.count, status">
+      <empty-message:>No requirements match your criteria</empty-message:>
+    </table-plus>
+  </collection:>
+</show-page>
